@@ -1,4 +1,3 @@
-# ads/views.py
 from django.shortcuts import render, redirect
 from .forms import UserRegisterForm
 from django.contrib import messages
@@ -8,8 +7,8 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Регистрация прошла успешно! Вы можете войти.')
-            return redirect('login')  # можно поменять на любую страницу
+            messages.success(request, 'Registration successful! You can log in.')
+            return redirect('login')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
