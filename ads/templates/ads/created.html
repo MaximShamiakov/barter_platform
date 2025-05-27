@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Объявление успешно создано!</h2>
+
+    <p><strong>Название:</strong> {{ ad.title }}</p>
+    <p><strong>Описание:</strong> {{ ad.description }}</p>
+    <p><strong>Состояние:</strong> {{ ad.get_condition_display }}</p>
+    <p><strong>Категория:</strong> {{ ad.get_category_display }}</p>
+
+    {% if ad.image_url %}
+        <img src='{{ ad.image_url }}' alt='{{ ad.title }}'>
+    {% endif %}
+    <p>
+        <a href='{% url 'ads_list' %}'>Назад к списку объявлений</a>
+        <a href='{% url 'create_ad'%}'>Создать ещё</a>
+    </p>
+{% endblock %}
+

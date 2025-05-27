@@ -14,10 +14,15 @@
 <ul>
     {% for ad in ads %}
         <li>
-            <strong>{{ ad.title }}</strong> - {{ ad.get_category_display }} - {{ ad.get_condition_display }}
-            <br>{{ ad.description|truncatechars:100 }}
-            <br>Создал <strong>{{ ad.user.username }}</strong> {{ ad.created_at|date:"d.m.Y H:i" }}
-            <br><a href="#">Подробнее</a>
+            <h1>{{ ad.title }}</h1>
+            <p><strong>Состояние:</strong> {{ ad.get_condition_display }}</p>
+            <p><strong>Описание:</strong></p>
+            <p>{{ ad.description }}</p>
+            <p><strong>Автор:</strong> {{ ad.user.username }}</p>
+            {% if ad.image_url %}
+                <img src="{{ ad.image_url }}" alt="{{ ad.title }}" style="max-width: 400px;">
+            {% endif %}
+            <p><small>Опубликовано: {{ ad.created_at|date:"d.m.Y H:i" }}</small></p>
         </li>
     {% empty %}
         <li>Объявлений не найдено.</li>

@@ -55,8 +55,7 @@ def create_ad(request):
             ad = form.save(commit=False)
             ad.user = request.user
             ad.save()
-            messages.success(request, 'Объявление успешно создано!')
-            return redirect('ads_list')
+            return render(request, 'ads/created.html', {'ad': ad})
     else:
         form = AdForm()
     return render(request, 'ads/create.html', {'form': form})
