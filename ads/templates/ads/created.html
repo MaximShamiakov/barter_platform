@@ -12,8 +12,8 @@
         <img src='{{ ad.image_url }}' alt='{{ ad.title }}'>
     {% endif %}
     <p>
-        <a href='{% url 'ads_list' %}'>Назад к списку объявлений</a>
-        <a href='{% url 'create_ad'%}'>Создать ещё</a>
+        <button><a href='{% url 'ads_list' %}'>Назад к списку объявлений</a></button>
+        <button><a href='{% url 'create_ad'%}'>Создать ещё</a></button>
     </p>
 {% endblock %}
 

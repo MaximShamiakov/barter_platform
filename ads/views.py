@@ -60,3 +60,7 @@ def create_ad(request):
         form = AdForm()
     return render(request, 'ads/create.html', {'form': form})
 
+@login_required
+def my_ads(request):
+    user_ads = Ad.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'ads/my_ads.html', {'ads': user_ads})
