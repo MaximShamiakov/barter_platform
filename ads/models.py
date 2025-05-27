@@ -15,7 +15,7 @@ class Ad(models.Model):
     ('toys', 'Игрушки'),
     ('vehicles', 'Транспорт'),
     ('other', 'Другое'),
-]
+    ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ads')
     title = models.CharField(max_length=255)

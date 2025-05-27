@@ -1,0 +1,32 @@
+<h1>Объявления</h1>
+
+<form method="get">
+    {{ form.q }}
+    {{ form.category }}
+    {{ form.condition }}
+    <button type="submit">Найти</button>
+</form>
+
+<ul>
+    {% for ad in ads %}
+        <li>
+            <strong>{{ ad.title }}</strong> — {{ ad.get_category_display }} — {{ ad.get_condition_display }}
+            <br>{{ ad.description|truncatechars:100 }}
+            <br><a href="#">Подробнее</a>
+        </li>
+    {% empty %}
+        <li>Объявлений не найдено.</li>
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    {% if ads.has_previous %}
+        <a href="?page={{ ads.previous_page_number }}&{{ request.GET.urlencode }}">Назад</a>
+    {% endif %}
+
+    <span>Страница {{ ads.number }} из {{ ads.paginator.num_pages }}</span>
+
+    {% if ads.has_next %}
+        <a href="?page={{ ads.next_page_number }}&{{ request.GET.urlencode }}">Вперёд</a>
+    {% endif %}
+</div>
