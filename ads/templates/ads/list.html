@@ -14,9 +14,9 @@
 <ul>
     {% for ad in ads %}
         <li>
-            <strong>{{ ad.title }}</strong> — {{ ad.get_category_display }} — {{ ad.get_condition_display }}
+            <strong>{{ ad.title }}</strong> - {{ ad.get_category_display }} - {{ ad.get_condition_display }}
             <br>{{ ad.description|truncatechars:100 }}
-            <br>{{ ad.created_at|date:"d.m.Y H:i" }}
+            <br>Создал <strong>{{ ad.user.username }}</strong> {{ ad.created_at|date:"d.m.Y H:i" }}
             <br><a href="#">Подробнее</a>
         </li>
     {% empty %}

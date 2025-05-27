@@ -19,4 +19,5 @@ urlpatterns = [
           auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), 
           name='password_reset_complete'),
      path('', views.ads_list, name='ads_list'),
+     path('abs/create', views.create_ad, name='create_ad')
 ]

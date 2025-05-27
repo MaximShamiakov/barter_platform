@@ -29,3 +29,9 @@ class AdFilterForm(forms.Form):
         required=False,
         choices=[('', 'Любое состояние')] + list(Ad.CONDITION_CHOICES)
     )
+
+
+class AdForm(forms.ModelForm):
+    class Meta:
+        model = Ad
+        fields = ['title', 'description', 'image_url', 'category', 'condition']

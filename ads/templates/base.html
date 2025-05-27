@@ -6,11 +6,11 @@
 <body>
     <nav>
         {% if user.is_authenticated %}
-            Привет, {{ user.username }}!
-            |
-            <a href="{% url 'logout' %}?next={{ request.path }}">Выйти</a>
+            Привет, {{ user.username }} |
+            <a href="{% url 'logout' %}">Выйти</a> |
+            <a href="{% url 'create_ad' %}">Создать объявление</a>
         {% else %}
-            <a href="{% url 'login' %}?next={{ request.path }}">Войти</a> |
+            <a href="{% url 'login' %}">Войти</a> |
             <a href="{% url 'register' %}">Зарегистрироваться</a> |
             <a href="{% url 'password_reset' %}">Забыл пароль?</a>
         {% endif %}
