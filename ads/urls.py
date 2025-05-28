@@ -20,8 +20,9 @@ urlpatterns = [
           auth_views.PasswordResetCompleteView.as_view(template_name='users/password_reset_complete.html'), 
           name='password_reset_complete'),
      path('', views.ads_list, name='ads_list'),
-     path('ads/create', views.create_ad, name='create_ad'),
-     path('ads/my', views.my_ads, name='my_ads'),
+     path('ads/create/', views.create_ad, name='create_ad'),
+     path('ads/my/', views.my_ads, name='my_ads'),
      path('ads/<int:ad_id>/edit/', views.edit_ad, name='edit_ad'),
-     path('abs/<int:ad_id>/delete', views.delete_ad, name='delete_ad'),
+     path('ads/<int:ad_id>/delete/', views.delete_ad, name='delete_ad'),
+     path('ads/create_exchange_proposal/', views.create_exchange_proposal, name='create_exchange_proposal'),
 ]

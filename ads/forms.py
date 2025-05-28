@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Ad
+from .models import Ad, ExchangeProposal
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -35,3 +35,12 @@ class AdForm(forms.ModelForm):
     class Meta:
         model = Ad
         fields = ['title', 'description', 'image_url', 'category', 'condition']
+
+
+class ExchangeProposalForm(forms.ModelForm):
+    class Meta:
+        model = ExchangeProposal
+        fields = ['ad_sender', 'ad_receiver', 'comment']
+        widgets = {
+            'comment': forms.TextInput(attrs={'placeholder': 'Необязательно'}),
+        }

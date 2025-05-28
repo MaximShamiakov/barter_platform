@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import UserRegisterForm, AdFilterForm, AdForm
+from .forms import UserRegisterForm, AdFilterForm, AdForm, ExchangeProposalForm
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -18,6 +18,7 @@ def register(request):
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
+
 
 def ads_list(request):
     form = AdFilterForm(request.GET)
@@ -48,6 +49,7 @@ def ads_list(request):
         'querystring': encoded_params,
     })
 
+
 @login_required
 def create_ad(request):
     if request.method == 'POST':
@@ -62,10 +64,12 @@ def create_ad(request):
         form = AdForm()
     return render(request, 'ads/create.html', {'form': form})
 
+
 @login_required
 def my_ads(request):
     user_ads = Ad.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'ads/my_ads.html', {'ads': user_ads})
+
 
 @login_required
 def edit_ad(request, ad_id):
@@ -84,22 +88,37 @@ def edit_ad(request, ad_id):
 
     return render(request, 'ads/edit_ad.html', {'form': form, 'ad': ad})
 
+
 @login_required
 def delete_ad(request, ad_id):
     ad = get_object_or_404(Ad, id=ad_id)
-    print(request)
 
     if ad.user != request.user:
         raise PermissionDenied
 
     if request.method == "POST":
         ad.delete()
-        return redirect('my_ads')
 
     return redirect('my_ads')
+
+
+@login_required
+def create_exchange_proposal(request):
+    if request.method == 'POST':
+        form = ExchangeProposalForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('my_ads')
+    else:
+        form = ExchangeProposalForm()
+
+    return render(request, 'exchange_proposals/create_exchange_proposal.html', {'form': form})
+
 
 def custom_permission_denied_view(request, exception):
     return render(request, 'errors/403.html', status=403)
 
+
 def custom_page_not_found_view(request, exception):
     return render(request, 'errors/404.html', status=404)
+
