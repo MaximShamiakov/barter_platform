@@ -1,6 +1,4 @@
 {% extends 'base.html' %}
-{% block title %}Объявления{% endblock %}
-
 {% block content %}
 <h1>Объявления</h1>
 
@@ -23,6 +21,10 @@
                 <img src='{{ ad.image_url }}'>
             {% endif %}
             <p>Опубликовано: {{ ad.created_at|date:'d.m.Y H:i' }}</p>
+            {% if ad.user != request.user %}
+                <a href='{% url 'create_exchange_proposal' %}?ad_receiver={{ ad.id }}'>Предложить обмен</a>
+            {% endif %}
+
         </li>
     {% empty %}
         <li>Объявлений не найдено.</li>

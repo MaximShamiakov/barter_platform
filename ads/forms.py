@@ -44,3 +44,9 @@ class ExchangeProposalForm(forms.ModelForm):
         widgets = {
             'comment': forms.TextInput(attrs={'placeholder': 'Необязательно'}),
         }
+        labels = {
+            'ad_sender': 'Объявление отправителя',
+            'ad_receiver': 'Объявление получателя',
+            'comment': 'Комментарий'
+        }
+

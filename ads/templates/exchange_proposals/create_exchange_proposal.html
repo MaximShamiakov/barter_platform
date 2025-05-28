@@ -2,11 +2,23 @@
 
 {% block content %}
     <h2>Создать предложение обмена</h2>
-    <form method=post>
-        {% csrf_token %}
-        {{ form.as_p }}
 
-        <button>Отправить предложение</button>
+        <p>Предложить обмен: <strong>{{ ad_receiver.title }}</strong></p>
+        <p>Состояние: <strong>{{ ad_receiver.get_condition_display }}</strong></p>
+        <p>Описание: <strong>{{ ad_receiver.description }}</strong></p>
+        <p>Автор: <strong>{{ ad_receiver.user.username }}</strong></p>
+        <p>Опубликовано: <strong>{{ad_receiver.created_at|date:'d.m.Y H:i'}}<strong></p>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="{{ form.ad_sender.id_for_label }}">Обменяться на</label><br>
+        {{ form.ad_sender }}<br><br>
+
+        <label for="{{ form.comment.id_for_label }}">Комментарий</label><br>
+        {{ form.comment }}<br><br>
+
+        <button type="submit">Отправить предложение</button>
     </form>
 
     <a href='{% url 'my_ads' %}'>Назад к моим объявлениям</a>

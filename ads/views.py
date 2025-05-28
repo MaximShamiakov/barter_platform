@@ -104,15 +104,23 @@ def delete_ad(request, ad_id):
 
 @login_required
 def create_exchange_proposal(request):
+    ad_receiver_id = request.GET.get('ad_receiver') or request.POST.get('ad_receiver')
+    ad_receiver = get_object_or_404(Ad, id=ad_receiver_id)
+
     if request.method == 'POST':
         form = ExchangeProposalForm(request.POST)
+        form.fields['ad_sender'].queryset = Ad.objects.filter(user=request.user)
         if form.is_valid():
-            form.save()
+            exchange_proposal = form.save(commit=False)
+            exchange_proposal.ad_receiver = ad_receiver
+            exchange_proposal.save()
             return redirect('my_ads')
+
     else:
         form = ExchangeProposalForm()
+        form.fields['ad_sender'].queryset = Ad.objects.filter(user=request.user)
 
-    return render(request, 'exchange_proposals/create_exchange_proposal.html', {'form': form})
+    return render(request, 'exchange_proposals/create_exchange_proposal.html', {'form': form, 'ad_receiver': ad_receiver})
 
 
 def custom_permission_denied_view(request, exception):
