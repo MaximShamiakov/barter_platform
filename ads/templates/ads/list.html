@@ -1,14 +1,14 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block title %}Объявления{% endblock %}
 
 {% block content %}
 <h1>Объявления</h1>
 
-<form method="get">
+<form method='get'>
     {{ form.q }}
     {{ form.category }}
     {{ form.condition }}
-    <button type="submit">Найти</button>
+    <button type='submit'>Найти</button>
 </form>
 
 <ul>
@@ -20,24 +20,24 @@
             <p>{{ ad.description }}</p>
             <p><strong>Автор:</strong> {{ ad.user.username }}</p>
             {% if ad.image_url %}
-                <img src="{{ ad.image_url }}" alt="{{ ad.title }}" style="max-width: 400px;">
+                <img src='{{ ad.image_url }}' alt='{{ ad.title }}'>
             {% endif %}
-            <p><small>Опубликовано: {{ ad.created_at|date:"d.m.Y H:i" }}</small></p>
+            <p><small>Опубликовано: {{ ad.created_at|date:'d.m.Y H:i' }}</small></p>
         </li>
     {% empty %}
         <li>Объявлений не найдено.</li>
     {% endfor %}
 </ul>
 
-<div class="pagination">
+<div class='pagination'>
     {% if ads.has_previous %}
-        <a href="?page={{ ads.previous_page_number }}&{{ request.GET.urlencode }}">Назад</a>
+        <a href='?page={{ ads.previous_page_number }}&{{ request.GET.urlencode }}'>Назад</a>
     {% endif %}
 
     <span>Страница {{ ads.number }} из {{ ads.paginator.num_pages }}</span>
 
     {% if ads.has_next %}
-        <a href="?page={{ ads.next_page_number }}&{{ request.GET.urlencode }}">Вперёд</a>
+        <a href='?page={{ ads.next_page_number }}&{{ request.GET.urlencode }}'>Вперёд</a>
     {% endif %}
 </div>
 {% endblock %}

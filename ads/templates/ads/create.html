@@ -5,6 +5,6 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button><a href='{% url 'ads_list' %}'>Назад к списку объявлений</a></button>
-    <button type="submit">Сохранить</button>
+    <button>Сохранить</button>
   </form>
 {% endblock %}

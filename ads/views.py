@@ -5,8 +5,6 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import Ad, ExchangeProposal
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseForbidden
-
 from django.core.exceptions import PermissionDenied
 
 
@@ -23,20 +21,16 @@ def register(request):
 
 def ads_list(request):
     form = AdFilterForm(request.GET)
-
     ads = Ad.objects.all().order_by('-created_at')
 
     if form.is_valid():
         query = form.cleaned_data.get('q')
         category = form.cleaned_data.get('category')
         condition = form.cleaned_data.get('condition')
-
     if query:
         ads = ads.filter(Q(title__icontains=query) | Q(description__icontains=query))
-
     if category:
         ads = ads.filter(category=category)
-
     if condition:
         ads = ads.filter(condition=condition)
 
@@ -68,7 +62,6 @@ def my_ads(request):
     user_ads = Ad.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'ads/my_ads.html', {'ads': user_ads})
 
-
 @login_required
 def edit_ad(request, ad_id):
     ad = get_object_or_404(Ad, id=ad_id)
@@ -86,6 +79,19 @@ def edit_ad(request, ad_id):
 
     return render(request, 'ads/edit_ad.html', {'form': form, 'ad': ad})
 
+@login_required
+def delete_ad(request, ad_id):
+    ad = get_object_or_404(Ad, id=ad_id)
+    print(request)
+
+    if ad.user != request.user:
+        raise PermissionDenied
+
+    if request.method == "POST":
+        ad.delete()
+        return redirect('my_ads')
+
+    return redirect('my_ads')
 
 def custom_permission_denied_view(request, exception):
     return render(request, 'errors/403.html', status=403)

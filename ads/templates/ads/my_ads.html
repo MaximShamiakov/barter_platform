@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
     <h2>Мои объявления</h2>
@@ -7,13 +7,19 @@
         <ul>
             {% for ad in ads %}
             <li>
-                <striptags>{{ ad.title }}</striptags> - {{ ad.get_condition_display }} - {{ ad.created_at|date:"d.m.Y" }}
-                <button><a href='{% url 'edit_ad' ad.id %}'>Редактировать</a></button>
+                <striptags>{{ ad.title }}</striptags> - {{ ad.get_condition_display }} - {{ ad.created_at|date:'d.m.Y' }}
+                <p>
+                    <button><a href='{% url 'edit_ad' ad.id %}'>Редактировать</a></button>
+                    <form method='post' action='{% url 'delete_ad' ad.id %}'>
+                        {% csrf_token %}
+                        <button>Удалить</button>
+                    </form>
+                </p>
             </li>
             {% endfor %}
         </ul>
     {% else %}
         <p>У вас ещё нет объявлений.</p>
     {% endif %}
-
 {% endblock %}
+

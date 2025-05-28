@@ -13,6 +13,7 @@
     {% endif %}
     <p>
         <button><a href='{% url 'ads_list' %}'>Назад к списку объявлений</a></button>
+        <button><a href='{% url 'edit_ad' ad.id %}'>Редактировать</a></button>
         <button><a href='{% url 'create_ad'%}'>Создать ещё</a></button>
     </p>
 {% endblock %}
