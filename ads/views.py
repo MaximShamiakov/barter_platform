@@ -27,6 +27,7 @@ def ads_list(request):
         query = form.cleaned_data.get('q')
         category = form.cleaned_data.get('category')
         condition = form.cleaned_data.get('condition')
+
     if query:
         ads = ads.filter(Q(title__icontains=query) | Q(description__icontains=query))
     if category:
@@ -37,10 +38,14 @@ def ads_list(request):
     paginator = Paginator(ads, 10)
     page = request.GET.get('page')
     ads_page = paginator.get_page(page)
+    get_params = request.GET.copy()
+    get_params.pop('page', None)
+    encoded_params = get_params.urlencode()
 
     return render(request, 'ads/list.html', {
         'ads': ads_page,
         'form': form,
+        'querystring': encoded_params,
     })
 
 @login_required
