@@ -21,4 +21,5 @@ urlpatterns = [
      path('', views.ads_list, name='ads_list'),
      path('ads/create', views.create_ad, name='create_ad'),
      path('ads/my', views.my_ads, name='my_ads'),
+     path('ads/<int:ad_id>/edit/', views.edit_ad, name='edit_ad')
 ]

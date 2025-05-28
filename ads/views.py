@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.core.paginator import Paginator
 from .models import Ad, ExchangeProposal
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
 
 def register(request):
@@ -64,3 +65,21 @@ def create_ad(request):
 def my_ads(request):
     user_ads = Ad.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'ads/my_ads.html', {'ads': user_ads})
+
+@login_required
+def edit_ad(request, ad_id):
+    ad = get_object_or_404(Ad, id=ad_id)
+
+    if ad.user != request.user:
+        return HttpResponseForbidden('Вы не можете редактировать это объявление.')
+
+    if request.method == 'POST':
+        form = AdForm(request.POST, instance=ad)
+
+        if form.is_valid():
+            form.save()
+            return redirect('my_ads')
+    else:
+        form = AdForm(instance=ad)
+
+    return render(request, 'ads/edit_ad.html', {'form': form, 'ad': ad})
