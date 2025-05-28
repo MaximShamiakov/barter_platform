@@ -7,6 +7,8 @@ from .models import Ad, ExchangeProposal
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 
+from django.core.exceptions import PermissionDenied
+
 
 def register(request):
     if request.method == 'POST':
@@ -66,16 +68,16 @@ def my_ads(request):
     user_ads = Ad.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'ads/my_ads.html', {'ads': user_ads})
 
+
 @login_required
 def edit_ad(request, ad_id):
     ad = get_object_or_404(Ad, id=ad_id)
 
     if ad.user != request.user:
-        return HttpResponseForbidden('Вы не можете редактировать это объявление.')
+        raise PermissionDenied
 
     if request.method == 'POST':
         form = AdForm(request.POST, instance=ad)
-
         if form.is_valid():
             form.save()
             return redirect('my_ads')
@@ -83,3 +85,10 @@ def edit_ad(request, ad_id):
         form = AdForm(instance=ad)
 
     return render(request, 'ads/edit_ad.html', {'form': form, 'ad': ad})
+
+
+def custom_permission_denied_view(request, exception):
+    return render(request, 'errors/403.html', status=403)
+
+def custom_page_not_found_view(request, exception):
+    return render(request, 'errors/404.html', status=404)
