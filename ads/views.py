@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import UserRegisterForm, AdFilterForm, AdForm, ExchangeProposalForm
+from .forms import UserRegisterForm, AdFilterForm, AdForm, ExchangeProposalForm, ExchangeProposalFilterForm
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator
@@ -125,9 +125,31 @@ def create_exchange_proposal(request):
 
 @login_required
 def exchange_proposals_list(request):
-    sent_proposals = ExchangeProposal.objects.filter(ad_sender__user=request.user).order_by('-created_at')
-    received_proposals = ExchangeProposal.objects.filter(ad_receiver__user=request.user).order_by('-created_at')
+    form = ExchangeProposalFilterForm(request.GET or None)
+
+    sent_proposals = ExchangeProposal.objects.filter(ad_sender__user=request.user)
+    received_proposals = ExchangeProposal.objects.filter(ad_receiver__user=request.user)
+
+    if form.is_valid():
+        status = form.cleaned_data.get('status')
+        sender = form.cleaned_data.get('sender')
+        receiver = form.cleaned_data.get('receiver')
+
+        if status:
+            sent_proposals = sent_proposals.filter(status=status)
+            received_proposals = received_proposals.filter(status=status)
+
+        if sender:
+            received_proposals = received_proposals.filter(ad_sender__user__username__icontains=sender)
+
+        if receiver:
+            sent_proposals = sent_proposals.filter(ad_receiver__user__username__icontains=receiver)
+    
+    sent_proposals = sent_proposals.order_by('-created_at')
+    received_proposals = received_proposals.order_by('-created_at')
+
     context = {
+        'form': form,
         'sent_proposals': sent_proposals,
         'received_proposals': received_proposals,
     }

@@ -13,21 +13,21 @@ class UserRegisterForm(UserCreationForm):
 
 class AdFilterForm(forms.Form):
     q = forms.CharField(
-        label='Поиск',
-        required=False,
-        widget=forms.TextInput(attrs={'placeholder': 'Поиск...'}),
+        label = 'Поиск',
+        required = False,
+        widget = forms.TextInput(attrs={'placeholder': 'Поиск...'}),
     )
 
     category = forms.ChoiceField(
-        label='Категория',
-        required=False,
-        choices=[('', 'Все категории')] + list(Ad.CATEGORY_CHOICES)
+        label = 'Категория',
+        required = False,
+        choices = [('', 'Все категории')] + list(Ad.CATEGORY_CHOICES)
     )
 
     condition = forms.ChoiceField(
-        label='Состояние',
-        required=False,
-        choices=[('', 'Любое состояние')] + list(Ad.CONDITION_CHOICES)
+        label = 'Состояние',
+        required = False,
+        choices = [('', 'Любое состояние')] + list(Ad.CONDITION_CHOICES)
     )
 
 
@@ -35,6 +35,13 @@ class AdForm(forms.ModelForm):
     class Meta:
         model = Ad
         fields = ['title', 'description', 'image_url', 'category', 'condition']
+        labels = {
+            'title': 'Название',
+            'description': 'Описание',
+            'image_url': 'Ссылка на изображение',
+            'category': 'Категория',
+            'condition': 'Состояние',
+        }
 
 
 class ExchangeProposalForm(forms.ModelForm):
@@ -48,3 +55,11 @@ class ExchangeProposalForm(forms.ModelForm):
             'ad_sender': 'Объявление отправителя',
             'comment': 'Комментарий'
         }
+
+
+class ExchangeProposalFilterForm(forms.Form):
+    STATUS_CHOICES = [('', 'Все')] + list(ExchangeProposal.STATUS_CHOICES)
+
+    status = forms.ChoiceField(choices=STATUS_CHOICES, required=False, label='Статус')
+    sender = forms.CharField(max_length=100, required=False, label='Отправитель')
+    receiver = forms.CharField(max_length=100, required=False, label='Получатель')

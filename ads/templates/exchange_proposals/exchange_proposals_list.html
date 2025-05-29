@@ -3,7 +3,19 @@
 {% block content %}
     <h2>Предложения обмена</h2>
 
+    <form method='get'>
+        <h3>Фильтрация</h3>
+        {{form.status.label_tag}}
+        {{ form.status }}
+        {{ form.sender.label_tag }}
+        {{ form.sender }}
+        {{ form.receiver.label_tag}}
+        {{ form.receiver }}
+        <button>Применить</button>
+    </form>
+
     <h3>Отправленные предложения</h3>
+
     {% if sent_proposals %}
         <ul>
             {% for proposal in sent_proposals %}
