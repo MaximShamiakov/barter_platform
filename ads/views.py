@@ -108,9 +108,6 @@ def create_exchange_proposal(request):
     ad_receiver = get_object_or_404(Ad, id=ad_receiver_id)
 
     if request.method == 'POST':
-        print('ad_sender из POST:', request.POST.get('ad_sender'))
-        print(request)
-        print(ad_receiver)
         form = ExchangeProposalForm(request.POST)
         form.fields['ad_sender'].queryset = Ad.objects.filter(user=request.user)
         if form.is_valid():
@@ -136,6 +133,30 @@ def exchange_proposals_list(request):
     }
 
     return render(request, 'exchange_proposals/exchange_proposals_list.html', context)
+
+
+@login_required
+def update_proposal_status(request, proposal_id):
+    proposal = get_object_or_404(ExchangeProposal, id=proposal_id)
+
+    if proposal.ad_receiver.user != request.user:
+        messages.error(request, 'Вы не можете изменить статус этого предложения.')
+        return redirect('exchange_proposals_list')
+    
+    if request.method == 'POST':
+        action = request.POST.get('action')
+        if action == 'accept':
+            proposal.status = 'accepted'
+            # proposal.save()
+        elif action == 'reject':
+            # proposal.delete()
+            proposal.status = 'rejected'
+        else:
+            messages.warning(request, 'Неверное действие.')
+            return redirect('exchange_proposals_list')
+        
+        proposal.save()
+    return redirect('exchange_proposals_list')
 
 
 def custom_permission_denied_view(request, exception):
