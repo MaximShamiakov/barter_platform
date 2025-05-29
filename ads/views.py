@@ -108,7 +108,7 @@ def create_exchange_proposal(request):
     ad_receiver = get_object_or_404(Ad, id=ad_receiver_id)
 
     if request.method == 'POST':
-        print("ad_sender из POST:", request.POST.get('ad_sender'))
+        print('ad_sender из POST:', request.POST.get('ad_sender'))
         print(request)
         print(ad_receiver)
         form = ExchangeProposalForm(request.POST)
@@ -124,6 +124,18 @@ def create_exchange_proposal(request):
         form.fields['ad_sender'].queryset = Ad.objects.filter(user=request.user)
 
     return render(request, 'exchange_proposals/create_exchange_proposal.html', {'form': form, 'ad_receiver': ad_receiver})
+
+
+@login_required
+def exchange_proposals_list(request):
+    sent_proposals = ExchangeProposal.objects.filter(ad_sender__user=request.user).order_by('-created_at')
+    received_proposals = ExchangeProposal.objects.filter(ad_receiver__user=request.user).order_by('-created_at')
+    context = {
+        'sent_proposals': sent_proposals,
+        'received_proposals': received_proposals,
+    }
+
+    return render(request, 'exchange_proposals/exchange_proposals_list.html', context)
 
 
 def custom_permission_denied_view(request, exception):
