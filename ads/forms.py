@@ -40,13 +40,11 @@ class AdForm(forms.ModelForm):
 class ExchangeProposalForm(forms.ModelForm):
     class Meta:
         model = ExchangeProposal
-        fields = ['ad_sender', 'ad_receiver', 'comment']
+        fields = ['ad_sender', 'comment']
         widgets = {
             'comment': forms.TextInput(attrs={'placeholder': 'Необязательно'}),
         }
         labels = {
             'ad_sender': 'Объявление отправителя',
-            'ad_receiver': 'Объявление получателя',
             'comment': 'Комментарий'
         }
-

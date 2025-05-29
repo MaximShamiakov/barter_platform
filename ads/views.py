@@ -96,7 +96,7 @@ def delete_ad(request, ad_id):
     if ad.user != request.user:
         raise PermissionDenied
 
-    if request.method == "POST":
+    if request.method == 'POST':
         ad.delete()
 
     return redirect('my_ads')
@@ -108,13 +108,16 @@ def create_exchange_proposal(request):
     ad_receiver = get_object_or_404(Ad, id=ad_receiver_id)
 
     if request.method == 'POST':
+        print("ad_sender из POST:", request.POST.get('ad_sender'))
+        print(request)
+        print(ad_receiver)
         form = ExchangeProposalForm(request.POST)
         form.fields['ad_sender'].queryset = Ad.objects.filter(user=request.user)
         if form.is_valid():
             exchange_proposal = form.save(commit=False)
             exchange_proposal.ad_receiver = ad_receiver
             exchange_proposal.save()
-            return redirect('my_ads')
+            return redirect('ads_list')
 
     else:
         form = ExchangeProposalForm()

@@ -43,4 +43,4 @@ class ExchangeProposal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.ad_sender} -> {self.ad_receiver} [{self.status}]'
+        return f'Обменять {self.ad_sender} на {self.ad_receiver} [{self.status}]'
