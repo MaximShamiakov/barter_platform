@@ -60,6 +60,11 @@ class ExchangeProposalForm(forms.ModelForm):
 class ExchangeProposalFilterForm(forms.Form):
     STATUS_CHOICES = [('', 'Все')] + list(ExchangeProposal.STATUS_CHOICES)
 
+    FILTER_TYPE_CHOICES = [
+        ('all', 'Все'),
+        ('sent', 'Отправленные'),
+        ('received', 'Полученные'),
+    ]
+
     status = forms.ChoiceField(choices=STATUS_CHOICES, required=False, label='Статус')
-    sender = forms.CharField(max_length=100, required=False, label='Отправитель')
-    receiver = forms.CharField(max_length=100, required=False, label='Получатель')
+    filter_type = forms.ChoiceField(choices=FILTER_TYPE_CHOICES, required=False, label='Показывать')

@@ -4,13 +4,13 @@
     <h2>Предложения обмена</h2>
 
     <form method='get'>
+
         <h3>Фильтрация</h3>
-        {{form.status.label_tag}}
+        {{ form.status.label_tag }}
         {{ form.status }}
-        {{ form.sender.label_tag }}
-        {{ form.sender }}
-        {{ form.receiver.label_tag}}
-        {{ form.receiver }}
+        {{ form.filter_type.label_tag }}
+        {{ form.filter_type }}
+
         <button>Применить</button>
     </form>
 
@@ -20,7 +20,19 @@
         <ul>
             {% for proposal in sent_proposals %}
             <li>
-                Вы предложили <strong>{{ proposal.ad_sender.title }}</strong> обменять на <strong>{{ proposal.ad_receiver.title }}</strong>
+                <p>Вы предложили пользователю <strong>{{ proposal.ad_receiver.user.username }} </strong> обменять <strong>{{ proposal.ad_sender.title }}</strong> на <strong>{{ proposal.ad_receiver.title }}</strong></p>
+                <p>Описание <strong>{{ proposal.ad_sender.title }}</strong>: {{ proposal.ad_sender.description }}</p>
+
+                {% if proposal.ad_sender.image_url %}
+                    <img src='{{ proposal.ad_sender.image_url }}'>
+                {% endif %}
+
+                <p>Описание <strong>{{ proposal.ad_receiver.title }}</strong>: {{ proposal.ad_receiver.description }}</p>
+
+                {% if proposal.ad_receiver.image_url %}
+                    <img src='{{ proposal.ad_receiver.image_url }}'>
+                {% endif %}
+
                 <p>Комментарий: {{proposal.comment | default:'без комментария'}}</p>
                 <p>Статус: {{ proposal.get_status_display }}</p>
             </li>
@@ -36,6 +48,14 @@
             {% for proposal in received_proposals%}
                 <li>
                     Пользователь <strong>{{ proposal.ad_sender.user.username }}</strong> предложил обменять <strong>{{ proposal.ad_sender.title }}</strong> на <strong>{{ proposal.ad_receiver.title }}</strong>
+                    <p>Описание <strong>{{ proposal.ad_sender.title }}</strong>: {{ proposal.ad_sender.description }}</p>
+                    {% if proposal.ad_sender.image_url %}
+                        <img src='{{ proposal.ad_sender.image_url }}'>
+                    {% endif %}
+                    <p>Описание <strong>{{ proposal.ad_receiver.title }}</strong>: {{ proposal.ad_receiver.description }}</p>
+                    {% if proposal.ad_receiver.image_url %}
+                        <img src='{{ proposal.ad_receiver.image_url }}'>
+                    {% endif %}
                     <p>Комментарий: {{proposal.comment | default:'без комментария'}}</p>
                     <p>Статус <span>{{ proposal.get_status_display }}</span></p>
                     <form method='post' action='{% url 'update_proposal_status' proposal.id %}'>

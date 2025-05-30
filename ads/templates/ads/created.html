@@ -3,14 +3,15 @@
 {% block content %}
     <h2>Объявление успешно создано!</h2>
 
-    <p><strong>Название:</strong> {{ ad.title }}</p>
+    <striptags>{{ ad.title }}</striptags><br>
+    {% if ad.image_url %}
+        <img src='{{ ad.image_url }}'>
+    {% endif %}
     <p><strong>Описание:</strong> {{ ad.description }}</p>
+    <p><strong>Категория: </strong> {{ ad.get_category_display }}</p>
     <p><strong>Состояние:</strong> {{ ad.get_condition_display }}</p>
     <p><strong>Категория:</strong> {{ ad.get_category_display }}</p>
-
-    {% if ad.image_url %}
-        <img src='{{ ad.image_url }}' alt='{{ ad.title }}'>
-    {% endif %}
+    <p><striptags>Опубликовано:</strong> {{ ad.created_at|date:'d.m.Y H:i' }}</p>
     <p>
         <button><a href='{% url 'ads_list' %}'>Назад к списку объявлений</a></button>
         <button><a href='{% url 'edit_ad' ad.id %}'>Редактировать</a></button>

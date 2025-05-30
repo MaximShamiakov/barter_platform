@@ -2,12 +2,13 @@
 
 {% block content %}
     <h2>Редактировать объявление</h2>
+
     <form method='post'>
         {% csrf_token %}
         {{ form.as_p }}
-        <button type='submit'>Сохранить изменения<button>
+        <button type='submit'>Сохранить изменения</button>
     </form>
-    <p><a href='{% url 'my_ads' %}'>Назад к моим объявлениям</a></p>
+    <a href='{% url 'my_ads' %}'><button>Назад к моим объявлениям</button></a>
 
 {% endblock %}
 

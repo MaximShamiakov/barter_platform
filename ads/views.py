@@ -143,19 +143,25 @@ def exchange_proposals_list(request):
 
     if form.is_valid():
         status = form.cleaned_data.get('status')
-        sender = form.cleaned_data.get('sender')
-        receiver = form.cleaned_data.get('receiver')
+        filter_type = form.cleaned_data.get('filter_type') or 'all'
 
-        if status:
-            sent_proposals = sent_proposals.filter(status=status)
-            received_proposals = received_proposals.filter(status=status)
+        if filter_type == 'sent':
+            sent_proposals = ExchangeProposal.objects.filter(ad_sender__user=request.user)
+            if status:
+                sent_proposals = sent_proposals.filter(status=status)
+            received_proposals = ExchangeProposal.objects.none()
+        elif filter_type == 'received':
+            received_proposals = ExchangeProposal.objects.filter(ad_receiver__user=request.user)
+            if status:
+                received_proposals = received_proposals.filter(status=status)
+            sent_proposals = ExchangeProposal.objects.none()
+        else:
+            if status:
+                sent_proposals = sent_proposals.filter(status=status)
+                received_proposals = received_proposals.filter(status=status)
+    else:
+        pass
 
-        if sender:
-            received_proposals = received_proposals.filter(ad_sender__user__username__icontains=sender)
-
-        if receiver:
-            sent_proposals = sent_proposals.filter(ad_receiver__user__username__icontains=receiver)
-    
     sent_proposals = sent_proposals.order_by('-created_at')
     received_proposals = received_proposals.order_by('-created_at')
 
@@ -166,6 +172,8 @@ def exchange_proposals_list(request):
     }
 
     return render(request, 'exchange_proposals/exchange_proposals_list.html', context)
+
+
 
 
 @login_required
