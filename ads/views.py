@@ -57,6 +57,17 @@ def ads_list(request):
 
 
 @login_required
+def my_ads(request):
+    user_ads = Ad.objects.filter(user=request.user).order_by('-created_at')
+    ads_page, form, querystring = get_filtered_paginated_ads(request, user_ads)
+    return render(request, 'ads/my_ads.html',{
+        'ads': ads_page,
+        'form': form,
+        'querystring': querystring,
+        })
+
+
+@login_required
 def create_ad(request):
     if request.method == 'POST':
         form = AdForm(request.POST)
@@ -69,17 +80,6 @@ def create_ad(request):
     else:
         form = AdForm()
     return render(request, 'ads/create.html', {'form': form})
-
-
-@login_required
-def my_ads(request):
-    user_ads = Ad.objects.filter(user=request.user).order_by('-created_at')
-    ads_page, form, querystring = get_filtered_paginated_ads(request, user_ads)
-    return render(request, 'ads/my_ads.html',{
-        'ads': ads_page,
-        'form': form,
-        'querystring': querystring,
-        })
 
 
 @login_required
@@ -172,8 +172,6 @@ def exchange_proposals_list(request):
     }
 
     return render(request, 'exchange_proposals/exchange_proposals_list.html', context)
-
-
 
 
 @login_required

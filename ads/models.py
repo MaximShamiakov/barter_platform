@@ -8,13 +8,13 @@ class Ad(models.Model):
     ]
 
     CATEGORY_CHOICES = [
-    ('electronics', 'Электроника'),
-    ('clothing', 'Одежда'),
-    ('books', 'Книги'),
-    ('furniture', 'Мебель'),
-    ('toys', 'Игрушки'),
-    ('vehicles', 'Транспорт'),
-    ('other', 'Другое'),
+        ('electronics', 'Электроника'),
+        ('clothing', 'Одежда'),
+        ('books', 'Книги'),
+        ('furniture', 'Мебель'),
+        ('toys', 'Игрушки'),
+        ('vehicles', 'Транспорт'),
+        ('other', 'Другое'),
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ads')
