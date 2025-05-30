@@ -3,6 +3,13 @@
 {% block content %}
     <h2>Мои объявления</h2>
 
+    <form method='get'>
+        {{ form.q }}
+        {{ form.category }}
+        {{ form.condition }}
+        <button>Найти</button>
+    </form>
+
     {% if ads %}
         <ul>
             {% for ad in ads %}

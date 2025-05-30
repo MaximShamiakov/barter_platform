@@ -20,9 +20,8 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 
-def ads_list(request):
+def get_filtered_paginated_ads(request, ads_queryset):
     form = AdFilterForm(request.GET)
-    ads = Ad.objects.all().order_by('-created_at')
 
     if form.is_valid():
         query = form.cleaned_data.get('q')
@@ -30,23 +29,30 @@ def ads_list(request):
         condition = form.cleaned_data.get('condition')
 
     if query:
-        ads = ads.filter(Q(title__icontains=query) | Q(description__icontains=query))
+        ads_queryset = ads_queryset.filter(Q(title__icontains=query) | Q(description__icontains=query))
     if category:
-        ads = ads.filter(category=category)
+        ads_queryset = ads_queryset.filter(category=category)
     if condition:
-        ads = ads.filter(condition=condition)
+        ads_queryset = ads_queryset.filter(condition=condition)
 
-    paginator = Paginator(ads, 10)
+    paginator = Paginator(ads_queryset, 10)
     page = request.GET.get('page')
     ads_page = paginator.get_page(page)
     get_params = request.GET.copy()
     get_params.pop('page', None)
     encoded_params = get_params.urlencode()
 
+    return ads_page, form, encoded_params
+
+
+def ads_list(request):
+    ads = Ad.objects.all().order_by('-created_at')
+    ads_page, form, querystring = get_filtered_paginated_ads(request, ads)
+
     return render(request, 'ads/list.html', {
         'ads': ads_page,
         'form': form,
-        'querystring': encoded_params,
+        'querystring': querystring,
     })
 
 
@@ -68,7 +74,12 @@ def create_ad(request):
 @login_required
 def my_ads(request):
     user_ads = Ad.objects.filter(user=request.user).order_by('-created_at')
-    return render(request, 'ads/my_ads.html', {'ads': user_ads})
+    ads_page, form, querystring = get_filtered_paginated_ads(request, user_ads)
+    return render(request, 'ads/my_ads.html',{
+        'ads': ads_page,
+        'form': form,
+        'querystring': querystring,
+        })
 
 
 @login_required
