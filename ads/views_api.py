@@ -114,3 +114,25 @@ class ExchangeProposalCreateView(generics.CreateAPIView):
         context['request'] = self.request
 
         return context
+    
+
+class UserReceivedProposalsListView(generics.ListAPIView):
+    serializer_class = ExchangeProposalSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return ExchangeProposal.objects.filter(ad_receiver__user=user).order_by('-created_at')
+
+
+class ExchangeProposalUpdateAPIView(generics.UpdateAPIView):
+    queryset = ExchangeProposal.objects.all()
+    serializer_class = ExchangeProposalSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_update(self, serializer):
+        proposal = self.get_object()
+        # Проверяем, что текущий пользователь — владелец объявления-получателя
+        if proposal.ad_receiver.user != self.request.user:
+            raise PermissionDenied('Вы не можете изменять статус этого предложения')
+        serializer.save()

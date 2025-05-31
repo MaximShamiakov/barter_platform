@@ -1,5 +1,5 @@
 from django.urls import path
-from .views_api import LoginView, AdListView, RegisterView, AdCreateAPIView, AdDeleteAPIView, AdUpdateAPIView, ExchangeProposalCreateView
+from .views_api import LoginView, AdListView, RegisterView, AdCreateAPIView, AdDeleteAPIView, AdUpdateAPIView, ExchangeProposalCreateView, UserReceivedProposalsListView, ExchangeProposalUpdateAPIView
 
 
 urlpatterns = [
@@ -9,5 +9,7 @@ urlpatterns = [
     path('ads/create/', AdCreateAPIView.as_view(), name='ad_create'),
     path('ads/<int:pk>/delete/', AdDeleteAPIView.as_view(), name='ad_delete'),
     path('ads/<int:pk>/update/', AdUpdateAPIView.as_view(), name='ad_update'),
-    path('api/exchange/', ExchangeProposalCreateView.as_view(), name='exchange-create')
+    path('exchange/', ExchangeProposalCreateView.as_view(), name='exchange_create'),
+    path('exchange_proposals/received/', UserReceivedProposalsListView.as_view(), name='received_proposals_list'),
+    path('exchange_proposals/<int:pk>/update/', ExchangeProposalUpdateAPIView.as_view(), name='exchange_proposal_update'),
 ]
