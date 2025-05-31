@@ -1,7 +1,6 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-from .views_api import AdsListView
 
 
 urlpatterns = [
@@ -28,5 +27,4 @@ urlpatterns = [
      path('ads/create_exchange_proposal/', views.create_exchange_proposal, name='create_exchange_proposal'),
      path('exchange_proposals/', views.exchange_proposals_list, name='exchange_proposals_list'),
      path('update/<int:proposal_id>/', views.update_proposal_status, name='update_proposal_status'),
-     path('api/ads/', AdsListView.as_view(), name='ads_list'),
 ]
