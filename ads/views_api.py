@@ -4,6 +4,8 @@ from .serializers import AdSerializer, LoginSerializer, RegisterSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
+from rest_framework.exceptions import PermissionDenied
+
 
 
 class AdListView(generics.ListAPIView):
@@ -54,3 +56,14 @@ class AdListCreateAPIView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+class AdDeleteAPIView(generics.DestroyAPIView):
+    queryset = Ad.objects.all()
+    serializer_class = AdSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_destroy(self, instance):
+        if instance.user != self.request.user:
+            raise PermissionDenied('Вы не можете удалять чужие объявления.')
+        instance.delete()
