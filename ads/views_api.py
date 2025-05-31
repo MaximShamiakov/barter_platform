@@ -5,13 +5,30 @@ from django.contrib.auth import authenticate, login
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
 from rest_framework.exceptions import PermissionDenied
-
+from django.db.models import Q
 
 
 class AdListView(generics.ListAPIView):
-    queryset = Ad.objects.all().order_by('-created_at')
     serializer_class = AdSerializer
 
+    def get_queryset(self):
+        queryset = Ad.objects.all().order_by('-created_at')
+
+        search_query = self.request.query_params.get('search')
+
+        if search_query:
+            queryset = queryset.filter(Q(title__icontains=search_query) | Q(description__icontains=search_query))
+
+        category = self.request.query_params.get('category')
+        if category:
+            queryset = queryset.filter(category=category)
+        
+        condition = self.request.query_params.get('condition')
+        if condition:
+            queryset = queryset.filter(condition=condition)
+
+        return queryset
+    
 
 class LoginView(GenericAPIView):
     permission_classes = [permissions.AllowAny]
