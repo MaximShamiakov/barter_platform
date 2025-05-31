@@ -1,9 +1,8 @@
-from rest_framework import generics, serializers, permissions, status
+from rest_framework import generics, permissions, status
 from .models import Ad
-from .serializers import AdSerializer
+from .serializers import AdSerializer, LoginSerializer, RegisterSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework.response import Response
-from .serializers import LoginSerializer, RegisterSerializer
 from rest_framework.generics import GenericAPIView
 
 
@@ -46,3 +45,12 @@ class RegisterView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'detail': 'Пользователь успешно зарегистрирован!'}, status=status.HTTP_201_CREATED)
+
+
+class AdListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Ad.objects.all().order_by('-created_at')
+    serializer_class = AdSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

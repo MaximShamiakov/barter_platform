@@ -7,6 +7,7 @@ class AdSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ad
         fields = '__all__'
+        read_only_fields = ['user']
 
 
 class LoginSerializer(serializers.Serializer):
@@ -31,3 +32,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         validated_data.pop('password2')
         user = User.objects.create_user(**validated_data)
         return user
+
+
+
