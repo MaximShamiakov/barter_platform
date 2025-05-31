@@ -49,13 +49,19 @@ class RegisterView(GenericAPIView):
         return Response({'detail': 'Пользователь успешно зарегистрирован!'}, status=status.HTTP_201_CREATED)
 
 
-class AdListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Ad.objects.all().order_by('-created_at')
+class AdCreateAPIView(generics.CreateAPIView):
     serializer_class = AdSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+        return Response({
+            'message': 'Объявление успешно создано!',
+            'ad': response.data
+        }, status=status.HTTP_201_CREATED)
 
 
 class AdDeleteAPIView(generics.DestroyAPIView):
@@ -67,3 +73,15 @@ class AdDeleteAPIView(generics.DestroyAPIView):
         if instance.user != self.request.user:
             raise PermissionDenied('Вы не можете удалять чужие объявления.')
         instance.delete()
+
+
+class AdUpdateAPIView(generics.RetrieveUpdateAPIView):
+    queryset = Ad.objects.all()
+    serializer_class = AdSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_update(self, serializer):
+        instance = self.get_object()
+        if instance.user != self.request.user:
+            raise PermissionDenied('Вы не можете редактировать чужие объявления.')
+        serializer.save()
