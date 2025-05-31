@@ -1,6 +1,6 @@
 from rest_framework import generics, permissions, status
-from .models import Ad
-from .serializers import AdSerializer, LoginSerializer, RegisterSerializer
+from .models import Ad, ExchangeProposal
+from .serializers import AdSerializer, LoginSerializer, RegisterSerializer, ExchangeProposalSerializer
 from django.contrib.auth import authenticate, login
 from rest_framework.response import Response
 from rest_framework.generics import GenericAPIView
@@ -102,3 +102,15 @@ class AdUpdateAPIView(generics.RetrieveUpdateAPIView):
         if instance.user != self.request.user:
             raise PermissionDenied('Вы не можете редактировать чужие объявления.')
         serializer.save()
+
+
+class ExchangeProposalCreateView(generics.CreateAPIView):
+    queryset = ExchangeProposal.objects.all()
+    serializer_class = ExchangeProposalSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+
+        return context

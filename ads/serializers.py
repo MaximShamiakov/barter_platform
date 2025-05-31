@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Ad
+from .models import Ad, ExchangeProposal
 from django.contrib.auth.models import User
 
 
@@ -34,4 +34,22 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
+class ExchangeProposalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExchangeProposal
+        fields = ['id', 'ad_sender', 'ad_receiver', 'comment', 'status', 'created_at']
+        read_only_fields = ['status', 'created_at']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
+        request = self.context.get('request')
+        if request and request.user.is_authenticated:
+            user = request.user
+            self.fields['ad_sender'].queryset = Ad.objects.filter(user=user)
+            self.fields['ad_receiver'].queryset = Ad.objects.exclude(user=user)
+            
+
+    def create(self, validated_data):
+        validated_data['status'] = 'pending'
+        return super().create(validated_data)
