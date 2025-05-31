@@ -1,5 +1,5 @@
 from django.urls import path
-from .views_api import LoginView, AdListView, RegisterView, AdCreateAPIView, AdDeleteAPIView, AdUpdateAPIView, ExchangeProposalCreateView, UserReceivedProposalsListView, ExchangeProposalUpdateAPIView
+from .views_api import LoginView, AdListView, RegisterView, AdCreateAPIView, AdDeleteAPIView, AdUpdateAPIView, ExchangeProposalCreateView, UserReceivedProposalsListView, ExchangeProposalUpdateAPIView, UserSentProposalsListView
 
 
 urlpatterns = [
@@ -12,4 +12,5 @@ urlpatterns = [
     path('exchange/', ExchangeProposalCreateView.as_view(), name='exchange_create'),
     path('exchange_proposals/received/', UserReceivedProposalsListView.as_view(), name='received_proposals_list'),
     path('exchange_proposals/<int:pk>/update/', ExchangeProposalUpdateAPIView.as_view(), name='exchange_proposal_update'),
+    path('exchange_proposals/sent/', UserSentProposalsListView.as_view(), name='user-sent-proposals'),
 ]

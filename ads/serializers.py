@@ -38,7 +38,7 @@ class ExchangeProposalSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExchangeProposal
         fields = ['id', 'ad_sender', 'ad_receiver', 'comment', 'status', 'created_at']
-        read_only_fields = ['created_at']
+        read_only_fields = ['status', 'created_at']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
