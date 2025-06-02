@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "Регистрация" %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg">
+            <div class="card-header bg-success text-white text-center">
+                <h3 class="card-title mb-0">
+                    <i class="bi bi-person-plus me-2"></i>{% trans "Регистрация" %}
+                </h3>
+            </div>
+            <div class="card-body p-4">
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <strong>{% trans "Ошибки при регистрации:" %}</strong>
+                        <ul class="mb-0 mt-2">
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">
+                            <i class="bi bi-person me-1"></i>{% trans "Имя пользователя:" %}
+                        </label>
+                        <input type="text"
+                               class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+                               id="{{ form.username.id_for_label }}"
+                               name="{{ form.username.name }}"
+                               value="{{ form.username.value|default:'' }}"
+                               required>
+                        {% if form.username.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.username.errors.0 }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">{% trans "Обязательное поле. Не более 150 символов." %}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.email.id_for_label }}" class="form-label">
+                            <i class="bi bi-envelope me-1"></i>Email:
+                        </label>
+                        <input type="email"
+                               class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                               id="{{ form.email.id_for_label }}"
+                               name="{{ form.email.name }}"
+                               value="{{ form.email.value|default:'' }}">
+                        {% if form.email.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.email.errors.0 }}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">{% trans "Необязательное поле для связи." %}</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.password1.id_for_label }}" class="form-label">
+                            <i class="bi bi-key me-1"></i>{% trans "Пароль:" %}
+                        </label>
+                        <input type="password"
+                               class="form-control {% if form.password1.errors %}is-invalid{% endif %}"
+                               id="{{ form.password1.id_for_label }}"
+                               name="{{ form.password1.name }}"
+                               required>
+                        {% if form.password1.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.password1.errors.0 }}
+                            </div>
+                        {% endif %}
+
+                        <!-- Валидация пароля в реальном времени -->
+                        <div id="password-validation" class="mt-2">
+                            <div class="password-requirement" id="length-check">
+                                <i class="bi bi-x-circle text-danger me-1"></i>
+                                <span>{% trans "Минимум 8 символов" %}</span>
+                            </div>
+                            <div class="password-requirement" id="digit-check">
+                                <i class="bi bi-x-circle text-danger me-1"></i>
+                                <span>{% trans "Минимум одна цифра" %}</span>
+                            </div>
+                            <div class="password-requirement" id="uppercase-check">
+                                <i class="bi bi-x-circle text-danger me-1"></i>
+                                <span>{% trans "Минимум одна заглавная буква" %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="{{ form.password2.id_for_label }}" class="form-label">
+                            <i class="bi bi-key-fill me-1"></i>{% trans "Подтверждение пароля:" %}
+                        </label>
+                        <input type="password"
+                               class="form-control {% if form.password2.errors %}is-invalid{% endif %}"
+                               id="{{ form.password2.id_for_label }}"
+                               name="{{ form.password2.name }}"
+                               required>
+                        {% if form.password2.errors %}
+                            <div class="invalid-feedback">
+                                {{ form.password2.errors.0 }}
+                            </div>
+                        {% endif %}
+
+                        <!-- Проверка совпадения паролей -->
+                        <div id="password-match" class="mt-2" style="display: none;">
+                            <div class="password-requirement">
+                                <i class="bi bi-x-circle text-danger me-1"></i>
+                                <span>{% trans "Пароли не совпадают" %}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success btn-lg" id="submit-btn">
+                            <i class="bi bi-person-plus me-2"></i>{% trans "Зарегистрироваться" %}
+                        </button>
+                    </div>
+                </form>
+
+                <hr class="my-4">
+
+                <div class="text-center">
+                    <p class="text-muted mb-3">{% trans "Уже есть аккаунт?" %}</p>
+                    <a href="{% url 'users:login' %}" class="btn btn-outline-primary">
+                        <i class="bi bi-box-arrow-in-right me-1"></i>{% trans "Войти" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.password-requirement {
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.password-requirement.valid i {
+    color: #198754 !important;
+}
+
+.password-requirement.valid i::before {
+    content: "\f26b";  /* check-circle icon */
+}
+
+.password-requirement i {
+    width: 1rem;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const password1 = document.getElementById('{{ form.password1.id_for_label }}');
+    const password2 = document.getElementById('{{ form.password2.id_for_label }}');
+    const submitBtn = document.getElementById('submit-btn');
+    const passwordMatch = document.getElementById('password-match');
+
+    // Элементы проверки
+    const lengthCheck = document.getElementById('length-check');
+    const digitCheck = document.getElementById('digit-check');
+    const uppercaseCheck = document.getElementById('uppercase-check');
+
+    let validations = {
+        length: false,
+        digit: false,
+        uppercase: false,
+        match: false
+    };
+
+    function updateRequirement(element, isValid) {
+        if (isValid) {
+            element.classList.add('valid');
+            element.querySelector('i').className = 'bi bi-check-circle text-success me-1';
+        } else {
+            element.classList.remove('valid');
+            element.querySelector('i').className = 'bi bi-x-circle text-danger me-1';
+        }
+    }
+
+    function validatePassword() {
+        const password = password1.value;
+
+        // Проверка длины
+        validations.length = password.length >= 8;
+        updateRequirement(lengthCheck, validations.length);
+
+        // Проверка цифры
+        validations.digit = /\d/.test(password);
+        updateRequirement(digitCheck, validations.digit);
+
+        // Проверка заглавной буквы
+        validations.uppercase = /[A-Z]/.test(password);
+        updateRequirement(uppercaseCheck, validations.uppercase);
+
+        updateSubmitButton();
+
+        // Проверяем совпадение паролей, если второй пароль не пустой
+        if (password2.value) {
+            validatePasswordMatch();
+        }
+    }
+
+    function validatePasswordMatch() {
+        const match = password1.value === password2.value && password2.value !== '';
+        validations.match = match;
+
+        if (password2.value) {
+            passwordMatch.style.display = 'block';
+            const matchElement = passwordMatch.querySelector('.password-requirement');
+
+            if (match) {
+                matchElement.innerHTML = '<i class="bi bi-check-circle text-success me-1"></i><span>{% trans "Пароли совпадают" %}</span>';
+            } else {
+                matchElement.innerHTML = '<i class="bi bi-x-circle text-danger me-1"></i><span>{% trans "Пароли не совпадают" %}</span>';
+            }
+        } else {
+            passwordMatch.style.display = 'none';
+        }
+
+        updateSubmitButton();
+    }
+
+    password1.addEventListener('input', validatePassword);
+    password2.addEventListener('input', validatePasswordMatch);
+
+    // Начальная проверка
+    if (password1.value) {
+        validatePassword();
+    }
+    if (password2.value) {
+        validatePasswordMatch();
+    }
+});
+</script>
+{% endblock %}

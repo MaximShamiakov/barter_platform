@@ -1,0 +1,693 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-02 16:12+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/ads/forms.py:11
+msgid "Поиск"
+msgstr "Search"
+
+#: apps/ads/forms.py:13
+msgid "Поиск..."
+msgstr "Search..."
+
+#: apps/ads/forms.py:17 apps/ads/forms.py:37 apps/ads/models.py:48
+msgid "Категория"
+msgstr "Category"
+
+#: apps/ads/forms.py:19
+msgid "Все категории"
+msgstr "All categories"
+
+#: apps/ads/forms.py:23 apps/ads/forms.py:38 apps/ads/models.py:53
+msgid "Состояние"
+msgstr "Condition"
+
+#: apps/ads/forms.py:25
+msgid "Любое состояние"
+msgstr "Any condition"
+
+#: apps/ads/forms.py:34
+msgid "Название"
+msgstr "Title"
+
+#: apps/ads/forms.py:35 apps/ads/models.py:36
+msgid "Описание"
+msgstr "Description"
+
+#: apps/ads/forms.py:36
+msgid "Ссылка на изображение"
+msgstr "Image link"
+
+#: apps/ads/forms.py:43
+msgid "Введите название товара"
+msgstr "Enter item title"
+
+#: apps/ads/forms.py:48 apps/ads/models.py:37
+msgid "Подробное описание товара"
+msgstr "Detailed item description"
+
+#: apps/ads/forms.py:65 apps/ads/models.py:85
+msgid "Заголовок должен содержать минимум 3 символа."
+msgstr "Title must contain at least 3 characters."
+
+#: apps/ads/forms.py:76 apps/ads/models.py:90
+msgid "Описание должно содержать минимум 10 символов."
+msgstr "Description must contain at least 10 characters."
+
+#: apps/ads/forms.py:97
+msgid "Дополнительная информация (необязательно)"
+msgstr "Additional information (optional)"
+
+#: apps/ads/forms.py:101 apps/ads/models.py:106
+msgid "Объявление отправителя"
+msgstr "Sender's ad"
+
+#: apps/ads/forms.py:102 apps/ads/models.py:116
+msgid "Комментарий"
+msgstr "Comment"
+
+#: apps/ads/forms.py:114 apps/ads/forms.py:117
+msgid "Все"
+msgstr "All"
+
+#: apps/ads/forms.py:118
+#: templates/exchange_proposals/exchange_proposals_list.html:46
+msgid "Отправленные"
+msgstr "Sent"
+
+#: apps/ads/forms.py:119
+#: templates/exchange_proposals/exchange_proposals_list.html:54
+msgid "Полученные"
+msgstr "Received"
+
+#: apps/ads/forms.py:125 apps/ads/models.py:123
+msgid "Статус"
+msgstr "Status"
+
+#: apps/ads/forms.py:131
+msgid "Показывать"
+msgstr "Show"
+
+#: apps/ads/models.py:10
+msgid "Новый"
+msgstr "New"
+
+#: apps/ads/models.py:11
+msgid "Б/у"
+msgstr "Used"
+
+#: apps/ads/models.py:15
+msgid "Электроника"
+msgstr "Electronics"
+
+#: apps/ads/models.py:16
+msgid "Одежда"
+msgstr "Clothing"
+
+#: apps/ads/models.py:17
+msgid "Книги"
+msgstr "Books"
+
+#: apps/ads/models.py:18
+msgid "Мебель"
+msgstr "Furniture"
+
+#: apps/ads/models.py:19
+msgid "Игрушки"
+msgstr "Toys"
+
+#: apps/ads/models.py:20
+msgid "Транспорт"
+msgstr "Vehicles"
+
+#: apps/ads/models.py:21
+msgid "Другое"
+msgstr "Other"
+
+#: apps/ads/models.py:28
+msgid "Пользователь"
+msgstr "User"
+
+#: apps/ads/models.py:32
+msgid "Заголовок"
+msgstr "Title"
+
+#: apps/ads/models.py:33
+msgid "Краткое описание товара"
+msgstr "Brief item description"
+
+#: apps/ads/models.py:42
+msgid "URL изображения"
+msgstr "Image URL"
+
+#: apps/ads/models.py:43
+msgid "Ссылка на изображение товара"
+msgstr "Link to item image"
+
+#: apps/ads/models.py:57 apps/ads/models.py:127
+msgid "Дата создания"
+msgstr "Created date"
+
+#: apps/ads/models.py:61 apps/ads/models.py:131
+msgid "Дата обновления"
+msgstr "Updated date"
+
+#: apps/ads/models.py:65
+msgid "Объявление"
+msgstr "Ad"
+
+#: apps/ads/models.py:66 templates/ads/list.html:5
+msgid "Объявления"
+msgstr "Ads"
+
+#: apps/ads/models.py:97
+msgid "Ожидает"
+msgstr "Pending"
+
+#: apps/ads/models.py:98
+msgid "Принята"
+msgstr "Accepted"
+
+#: apps/ads/models.py:99
+msgid "Отклонена"
+msgstr "Rejected"
+
+#: apps/ads/models.py:112
+msgid "Объявление получателя"
+msgstr "Receiver's ad"
+
+#: apps/ads/models.py:117
+msgid "Дополнительная информация к предложению"
+msgstr "Additional information for the proposal"
+
+#: apps/ads/models.py:135
+msgid "Предложение обмена"
+msgstr "Exchange proposal"
+
+#: apps/ads/models.py:136 templates/base.html:50
+#: templates/exchange_proposals/exchange_proposals_list.html:5
+#: templates/exchange_proposals/exchange_proposals_list.html:11
+msgid "Предложения обмена"
+msgstr "Exchange proposals"
+
+#: apps/ads/models.py:159
+msgid "Нельзя предложить обмен собственного товара на себя же."
+msgstr "Cannot propose exchange of own item for itself."
+
+#: apps/ads/models.py:164
+msgid "Нельзя предложить обмен между собственными товарами."
+msgstr "Cannot propose exchange between own items."
+
+#: apps/ads/views.py:91
+msgid "Объявление успешно создано!"
+msgstr "Ad created successfully!"
+
+#: apps/ads/views.py:99
+msgid "Ошибка при создании объявления: {}"
+msgstr "Error creating ad: {}"
+
+#: apps/ads/views.py:127
+msgid "Объявление успешно обновлено!"
+msgstr "Ad updated successfully!"
+
+#: apps/ads/views.py:134
+msgid "Ошибка при обновлении объявления: {}"
+msgstr "Error updating ad: {}"
+
+#: apps/ads/views.py:153
+msgid "Объявление успешно удалено!"
+msgstr "Ad deleted successfully!"
+
+#: apps/ads/views.py:159
+msgid "У вас нет прав для удаления этого объявления."
+msgstr "You don't have permission to delete this ad."
+
+#: apps/ads/views.py:176
+msgid "Вы не можете предложить обмен с собственным объявлением."
+msgstr "You cannot propose exchange with your own ad."
+
+#: apps/ads/views.py:184
+msgid "У вас нет объявлений для обмена. Создайте объявление сначала."
+msgstr "You have no ads for exchange. Create an ad first."
+
+#: apps/ads/views.py:199
+msgid "Предложение обмена отправлено!"
+msgstr "Exchange proposal sent!"
+
+#: apps/ads/views.py:256
+msgid "Предложение принято!"
+msgstr "Proposal accepted!"
+
+#: apps/ads/views.py:263
+msgid "Предложение отклонено!"
+msgstr "Proposal rejected!"
+
+#: apps/ads/views.py:265
+msgid "Неверное действие."
+msgstr "Invalid action."
+
+#: apps/users/forms.py:8
+msgid "Email"
+msgstr "Email"
+
+#: apps/users/forms.py:19
+msgid "Имя пользователя"
+msgstr "Username"
+
+#: apps/users/forms.py:20
+msgid "Пароль"
+msgstr "Password"
+
+#: apps/users/forms.py:21
+msgid "Подтверждение пароля"
+msgstr "Password confirmation"
+
+#: apps/users/validators.py:16
+msgid "Пароль должен содержать минимум одну цифру."
+msgstr "Password must contain at least one digit."
+
+#: apps/users/validators.py:21
+msgid "Пароль должен содержать минимум одну заглавную букву."
+msgstr "Password must contain at least one uppercase letter."
+
+#: apps/users/validators.py:27
+msgid "Пароль должен содержать минимум одну цифру и одну заглавную букву."
+msgstr "Password must contain at least one digit and one uppercase letter."
+
+#: apps/users/views.py:16
+msgid "Регистрация прошла успешно! Теперь вы можете войти в систему."
+msgstr "Registration successful! You can now log in."
+
+#: templates/ads/create.html:4 templates/ads/create.html:12
+#: templates/ads/create.html:135 templates/ads/list.html:16
+#: templates/ads/list.html:107 templates/ads/my_ads.html:15
+#: templates/base.html:40
+#: templates/exchange_proposals/exchange_proposals_list.html:263
+msgid "Создать объявление"
+msgstr "Create ad"
+
+#: templates/ads/create.html:19 templates/ads/edit_ad.html:19
+#: templates/exchange_proposals/create_exchange_proposal.html:29
+msgid "Пожалуйста, исправьте ошибки:"
+msgstr "Please fix the errors:"
+
+#: templates/ads/create.html:35 templates/ads/edit_ad.html:35
+msgid "Название объявления:"
+msgstr "Ad title:"
+
+#: templates/ads/create.html:48
+msgid "Кратко опишите ваш товар"
+msgstr "Briefly describe your item"
+
+#: templates/ads/create.html:53 templates/ads/edit_ad.html:52
+msgid "Описание:"
+msgstr "Description:"
+
+#: templates/ads/create.html:65
+msgid "Подробно расскажите о товаре, его особенностях"
+msgstr "Tell us more about the item and its features"
+
+#: templates/ads/create.html:71 templates/ads/edit_ad.html:69
+#: templates/ads/list.html:37 templates/ads/my_ads.html:35
+msgid "Категория:"
+msgstr "Category:"
+
+#: templates/ads/create.html:92 templates/ads/edit_ad.html:90
+#: templates/ads/list.html:41 templates/ads/my_ads.html:39
+msgid "Состояние:"
+msgstr "Condition:"
+
+#: templates/ads/create.html:114 templates/ads/edit_ad.html:112
+msgid "Ссылка на изображение:"
+msgstr "Image link:"
+
+#: templates/ads/create.html:129
+msgid "Добавьте ссылку на изображение товара"
+msgstr "Add a link to the item image"
+
+#: templates/ads/create.html:138 templates/ads/edit_ad.html:136
+#: templates/ads/my_ads.html:116
+#: templates/exchange_proposals/create_exchange_proposal.html:76
+msgid "Отменить"
+msgstr "Cancel"
+
+#: templates/ads/edit_ad.html:4 templates/ads/edit_ad.html:12
+msgid "Редактировать объявление"
+msgstr "Edit ad"
+
+#: templates/ads/edit_ad.html:127
+msgid "Оставьте пустым, если не хотите менять изображение"
+msgstr "Leave empty if you don't want to change the image"
+
+#: templates/ads/edit_ad.html:133
+msgid "Сохранить изменения"
+msgstr "Save changes"
+
+#: templates/ads/list.html:12 templates/base.html:34
+msgid "Все объявления"
+msgstr "All ads"
+
+#: templates/ads/list.html:27 templates/ads/my_ads.html:25
+msgid "Поиск и фильтры"
+msgstr "Search and filters"
+
+#: templates/ads/list.html:33 templates/ads/my_ads.html:31
+msgid "Поиск по названию:"
+msgstr "Search by title:"
+
+#: templates/ads/list.html:46 templates/ads/my_ads.html:44
+msgid "Найти"
+msgstr "Find"
+
+#: templates/ads/list.html:91
+msgid "Обменять"
+msgstr "Exchange"
+
+#: templates/ads/list.html:103
+msgid "Объявлений не найдено."
+msgstr "No ads found."
+
+#: templates/ads/list.html:105
+msgid "Будьте первым, кто создаст объявление!"
+msgstr "Be the first to create an ad!"
+
+#: templates/ads/list.html:117 templates/ads/my_ads.html:149
+msgid "Навигация по страницам"
+msgstr "Page navigation"
+
+#: templates/ads/list.html:162 templates/ads/my_ads.html:194
+#, python-format
+msgid "Страница %(page_number)s из %(total_pages)s"
+msgstr "Page %(page_number)s of %(total_pages)s"
+
+#: templates/ads/my_ads.html:5 templates/ads/my_ads.html:12
+#: templates/base.html:45 templates/errors/403.html:23
+#: templates/errors/404.html:23
+msgid "Мои объявления"
+msgstr "My ads"
+
+#: templates/ads/my_ads.html:89
+msgid "Редактировать"
+msgstr "Edit"
+
+#: templates/ads/my_ads.html:92 templates/ads/my_ads.html:121
+msgid "Удалить"
+msgstr "Delete"
+
+#: templates/ads/my_ads.html:106
+msgid "Подтверждение удаления"
+msgstr "Confirm deletion"
+
+#: templates/ads/my_ads.html:111
+#, python-format
+msgid ""
+"Вы уверены, что хотите удалить объявление <strong>\"%(title)s\"</strong>?"
+msgstr "Are you sure you want to delete the ad <strong>\"%(title)s\"</strong>?"
+
+#: templates/ads/my_ads.html:112
+msgid "Это действие нельзя отменить."
+msgstr "This action cannot be undone."
+
+#: templates/ads/my_ads.html:137
+msgid "У вас ещё нет объявлений"
+msgstr "You don't have any ads yet"
+
+#: templates/ads/my_ads.html:138
+msgid "Создайте первое объявление и начните обмениваться товарами!"
+msgstr "Create your first ad and start exchanging items!"
+
+#: templates/ads/my_ads.html:140
+msgid "Создать первое объявление"
+msgstr "Create first ad"
+
+#: templates/base.html:8 templates/base.html:23
+msgid "Платформа бартера"
+msgstr "Barter Platform"
+
+#: templates/base.html:92 templates/users/login.html:25
+msgid "Выйти"
+msgstr "Logout"
+
+#: templates/base.html:99 templates/users/login.html:74
+#: templates/users/register.html:136
+msgid "Войти"
+msgstr "Login"
+
+#: templates/base.html:104 templates/users/login.html:84
+#: templates/users/register.html:4 templates/users/register.html:12
+msgid "Регистрация"
+msgstr "Registration"
+
+#: templates/base.html:144
+msgid "Платформа бартера. Все права защищены."
+msgstr "Barter Platform. All rights reserved."
+
+#: templates/errors/400.html:4 templates/errors/400.html:14
+msgid "Некорректный запрос"
+msgstr "Bad Request"
+
+#: templates/errors/400.html:16
+msgid ""
+"Ваш запрос содержит ошибки или некорректные данные. Проверьте введенную "
+"информацию и попробуйте снова."
+msgstr ""
+"Your request contains errors or incorrect data. Please check the entered "
+"information and try again."
+
+#: templates/errors/400.html:20 templates/errors/403.html:20
+#: templates/errors/404.html:20 templates/errors/500.html:24
+msgid "На главную"
+msgstr "Home"
+
+#: templates/errors/400.html:23
+msgid "Назад"
+msgstr "Back"
+
+#: templates/errors/403.html:4 templates/errors/403.html:14
+msgid "Доступ запрещен"
+msgstr "Access denied"
+
+#: templates/errors/403.html:16
+msgid ""
+"Вы не можете редактировать это объявление, так как не являетесь его автором."
+msgstr "You cannot edit this ad because you are not its author."
+
+#: templates/errors/404.html:4 templates/errors/404.html:14
+msgid "Страница не найдена"
+msgstr "Page not found"
+
+#: templates/errors/404.html:16
+msgid "Возможно, страница была удалена или вы указали неверный адрес."
+msgstr "The page may have been deleted or you entered an incorrect address."
+
+#: templates/errors/500.html:4 templates/errors/500.html:14
+msgid "Внутренняя ошибка сервера"
+msgstr "Internal Server Error"
+
+#: templates/errors/500.html:16
+msgid ""
+"На сервере произошла ошибка. Мы уже уведомлены об этой проблеме и работаем "
+"над её устранением."
+msgstr ""
+"An error occurred on the server. We have been notified of this problem and "
+"are working to fix it."
+
+#: templates/errors/500.html:20
+msgid ""
+"Попробуйте обновить страницу через несколько минут или обратитесь в службу "
+"поддержки, если проблема повторяется."
+msgstr ""
+"Try refreshing the page in a few minutes or contact support if the problem "
+"persists."
+
+#: templates/errors/500.html:27
+msgid "Обновить страницу"
+msgstr "Refresh page"
+
+#: templates/exchange_proposals/create_exchange_proposal.html:5
+#: templates/exchange_proposals/create_exchange_proposal.html:13
+msgid "Создать предложение обмена"
+msgstr "Create exchange proposal"
+
+#: templates/exchange_proposals/create_exchange_proposal.html:20
+msgid "Объявление для обмена:"
+msgstr "Ad for exchange:"
+
+#: templates/exchange_proposals/create_exchange_proposal.html:45
+msgid "Ваше объявление для обмена:"
+msgstr "Your ad for exchange:"
+
+#: templates/exchange_proposals/create_exchange_proposal.html:53
+msgid "Выберите объявление, которое хотите предложить в обмен"
+msgstr "Select the ad you want to offer in exchange"
+
+#: templates/exchange_proposals/create_exchange_proposal.html:58
+msgid "Комментарий (необязательно):"
+msgstr "Comment (optional):"
+
+#: templates/exchange_proposals/create_exchange_proposal.html:66
+msgid "Добавьте комментарий к вашему предложению"
+msgstr "Add a comment to your proposal"
+
+#: templates/exchange_proposals/create_exchange_proposal.html:73
+msgid "Отправить предложение"
+msgstr "Send proposal"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:20
+msgid "Фильтрация"
+msgstr "Filtering"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:35
+msgid "Применить"
+msgstr "Apply"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:74
+#, python-format
+msgid "Для: <strong>%(username)s</strong>"
+msgstr "To: <strong>%(username)s</strong>"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:88
+msgid "Ваше предложение:"
+msgstr "Your offer:"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:114
+msgid "В обмен на:"
+msgstr "In exchange for:"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:137
+#: templates/exchange_proposals/exchange_proposals_list.html:234
+msgid "Комментарий:"
+msgstr "Comment:"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:148
+msgid "Вы еще не отправляли предложений обмена."
+msgstr "You haven't sent any exchange proposals yet."
+
+#: templates/exchange_proposals/exchange_proposals_list.html:149
+msgid "Найдите интересное объявление и предложите обмен!"
+msgstr "Find an interesting ad and propose an exchange!"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:152
+msgid "Найти объявления"
+msgstr "Find ads"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:171
+#, python-format
+msgid "От: <strong>%(username)s</strong>"
+msgstr "From: <strong>%(username)s</strong>"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:185
+msgid "Предлагают:"
+msgstr "They offer:"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:211
+msgid "За ваш товар:"
+msgstr "For your item:"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:243
+msgid "Принять"
+msgstr "Accept"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:246
+msgid "Отклонить"
+msgstr "Reject"
+
+#: templates/exchange_proposals/exchange_proposals_list.html:259
+msgid "Вам еще не предлагали обмен."
+msgstr "No one has offered you an exchange yet."
+
+#: templates/exchange_proposals/exchange_proposals_list.html:260
+msgid "Создайте объявление, чтобы получать предложения обмена!"
+msgstr "Create an ad to receive exchange offers!"
+
+#: templates/users/login.html:4 templates/users/login.html:12
+msgid "Вход в систему"
+msgstr "Login"
+
+#: templates/users/login.html:19
+msgid "Вы уже вошли в систему"
+msgstr "You are already logged in"
+
+#: templates/users/login.html:20
+#, python-format
+msgid "Привет, %(username)s!"
+msgstr "Hello, %(username)s!"
+
+#: templates/users/login.html:32
+msgid "Ошибка входа:"
+msgstr "Login error:"
+
+#: templates/users/login.html:33
+msgid "Неверное имя пользователя или пароль. Попробуйте снова."
+msgstr "Please enter a correct username and password. Note that both fields may be case-sensitive."
+
+#: templates/users/login.html:41 templates/users/register.html:35
+msgid "Имя пользователя:"
+msgstr "Username:"
+
+#: templates/users/login.html:58 templates/users/register.html:70
+msgid "Пароль:"
+msgstr "Password:"
+
+#: templates/users/login.html:82
+msgid "Нет аккаунта?"
+msgstr "Don't have an account?"
+
+#: templates/users/register.html:19
+msgid "Ошибки при регистрации:"
+msgstr "Registration errors:"
+
+#: templates/users/register.html:48
+msgid "Обязательное поле. Не более 150 символов."
+msgstr "Required field. No more than 150 characters."
+
+#: templates/users/register.html:65
+msgid "Необязательное поле для связи."
+msgstr "Optional field for communication."
+
+#: templates/users/register.html:87
+msgid "Минимум 8 символов"
+msgstr "Minimum 8 characters"
+
+#: templates/users/register.html:91
+msgid "Минимум одна цифра"
+msgstr "At least one digit"
+
+#: templates/users/register.html:95
+msgid "Минимум одна заглавная буква"
+msgstr "At least one uppercase letter"
+
+#: templates/users/register.html:102
+msgid "Подтверждение пароля:"
+msgstr "Password confirmation:"
+
+#: templates/users/register.html:119 templates/users/register.html:231
+msgid "Пароли не совпадают"
+msgstr "Passwords don't match"
+
+#: templates/users/register.html:126
+msgid "Зарегистрироваться"
+msgstr "Register"
+
+#: templates/users/register.html:134
+msgid "Уже есть аккаунт?"
+msgstr "Already have an account?"
+
+#: templates/users/register.html:229
+msgid "Пароли совпадают"
+msgstr "Passwords match"

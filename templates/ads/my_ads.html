@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% load form_tags %}
+{% load i18n %}
+
+{% block title %}{% trans "Мои объявления" %} - {{ block.super }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h2 text-primary">
+                    <i class="bi bi-person-lines-fill me-2"></i>{% trans "Мои объявления" %}
+                </h1>
+                <a href="{% url 'create_ad' %}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-2"></i>{% trans "Создать объявление" %}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search and Filter Form -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-header bg-light">
+            <h5 class="card-title mb-0">
+                <i class="bi bi-search me-2"></i>{% trans "Поиск и фильтры" %}
+            </h5>
+        </div>
+        <div class="card-body">
+            <form method="get" class="row g-3">
+                <div class="col-md-4">
+                    <label for="{{ form.q.id_for_label }}" class="form-label">{% trans "Поиск по названию:" %}</label>
+                    {{ form.q|add_class:"form-control" }}
+                </div>
+                <div class="col-md-3">
+                    <label for="{{ form.category.id_for_label }}" class="form-label">{% trans "Категория:" %}</label>
+                    {{ form.category|add_class:"form-select" }}
+                </div>
+                <div class="col-md-3">
+                    <label for="{{ form.condition.id_for_label }}" class="form-label">{% trans "Состояние:" %}</label>
+                    {{ form.condition|add_class:"form-select" }}
+                </div>
+                <div class="col-md-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-outline-primary w-100">
+                        <i class="bi bi-search me-1"></i>{% trans "Найти" %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- My Ads List -->
+    {% if ads %}
+        <div class="row">
+            {% for ad in ads %}
+                <div class="col-lg-6 col-xl-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        {% if ad.image_url %}
+                            <img src="{{ ad.image_url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ ad.title }}">
+                        {% else %}
+                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                            </div>
+                        {% endif %}
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-truncate">{{ ad.title }}</h5>
+                            <p class="card-text text-muted small mb-2">{{ ad.description|truncatewords:15 }}</p>
+
+                            <div class="mt-auto">
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <span class="badge bg-secondary">
+                                            <i class="bi bi-tag me-1"></i>{{ ad.get_category_display }}
+                                        </span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span class="badge bg-info">
+                                            <i class="bi bi-check-circle me-1"></i>{{ ad.get_condition_display }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="text-muted small mb-3">
+                                    <i class="bi bi-calendar me-1"></i>{{ ad.created_at|date:'d.m.Y H:i' }}
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <a href="{% url 'edit_ad' ad.id %}" class="btn btn-outline-primary btn-sm flex-fill">
+                                        <i class="bi bi-pencil me-1"></i>{% trans "Редактировать" %}
+                                    </a>
+                                    <button type="button" class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal{{ ad.id }}">
+                                        <i class="bi bi-trash me-1"></i>{% trans "Удалить" %}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteModal{{ ad.id }}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">
+                                    <i class="bi bi-exclamation-triangle text-warning me-2"></i>{% trans "Подтверждение удаления" %}
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>{% blocktrans with title=ad.title %}Вы уверены, что хотите удалить объявление <strong>"{{ title }}"</strong>?{% endblocktrans %}</p>
+                                <p class="text-muted">{% trans "Это действие нельзя отменить." %}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    <i class="bi bi-x-circle me-1"></i>{% trans "Отменить" %}
+                                </button>
+                                <form method="post" action="{% url 'delete_ad' ad.id %}" class="d-inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">
+                                        <i class="bi bi-trash me-1"></i>{% trans "Удалить" %}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-12">
+                <div class="alert alert-info text-center">
+                    <div class="mb-3">
+                        <i class="bi bi-inbox" style="font-size: 3rem; color: #0dcaf0;"></i>
+                    </div>
+                    <h4>{% trans "У вас ещё нет объявлений" %}</h4>
+                    <p class="mb-3">{% trans "Создайте первое объявление и начните обмениваться товарами!" %}</p>
+                    <a href="{% url 'create_ad' %}" class="btn btn-primary btn-lg">
+                        <i class="bi bi-plus-circle me-2"></i>{% trans "Создать первое объявление" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Pagination -->
+    {% if ads.has_other_pages %}
+        <nav aria-label="{% trans 'Навигация по страницам' %}">
+            <ul class="pagination justify-content-center">
+                {% if ads.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ ads.previous_page_number }}{% if querystring %}&{{ querystring }}{% endif %}">
+                            <i class="bi bi-chevron-left"></i>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <i class="bi bi-chevron-left"></i>
+                        </span>
+                    </li>
+                {% endif %}
+
+                {% for num in ads.paginator.page_range %}
+                    {% if ads.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num > ads.number|add:'-3' and num < ads.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}{% if querystring %}&{{ querystring }}{% endif %}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if ads.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ ads.next_page_number }}{% if querystring %}&{{ querystring }}{% endif %}">
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">
+                            <i class="bi bi-chevron-right"></i>
+                        </span>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="text-center text-muted mt-2">
+            {% blocktrans with page_number=ads.number total_pages=ads.paginator.num_pages %}Страница {{ page_number }} из {{ total_pages }}{% endblocktrans %}
+        </div>
+    {% endif %}
+{% endblock %}

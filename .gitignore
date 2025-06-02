@@ -5,11 +5,20 @@ __pycache__/
 *.pyd
 *.sqlite3
 
-# Django
-db.sqlite3
+# Coverage
+.coverage
+.coverage.*
+htmlcov/
 
-# Env
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# Local settings
+config/settings/local.py
+
+# Virtual environments
 .venv/
 venv/
 
@@ -17,4 +26,31 @@ venv/
 *.swp
 *.swo
 *.idea/
-.vscode/
+*.code-workspace
+
+# Static files
+staticfiles/
+
+# Media files
+media/
+
+# Django specific
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.pid
+*.seed
+*.lock
+
+# Deployment
+*.egg-info/
+
+# Backup files
+*.bak
+*.backup

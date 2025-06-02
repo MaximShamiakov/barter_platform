@@ -11,6 +11,10 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
+# Автоматический выбор настроек в зависимости от окружения
+env = os.getenv('DJANGO_ENV', 'development')
+settings_module = f'config.settings.{env}'
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
 
 application = get_asgi_application()
